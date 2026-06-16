@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gradnja Vuk - Krovovi, adaptacije i rušenje u Beogradu</title>
+<meta name="description" content="Gradnja Vuk - pouzdani građevinski radovi u Beogradu. Izrada krovova, adaptacije stanova, rušenje zidova, skidanje parketa, laminata, pločica i odvoz šuta.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#ffffff;--gray:#f5f7fa;--lblue:#eaf4ff;--blue:#2f80ed;--red:#e63946;
+  --dark:#1f2937;--muted:#64748b;--border:#e5e7eb;
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--dark);line-height:1.6;background:#fff}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* Image placeholder */
+.img-ph{position:relative;background:var(--lblue);border:1px solid var(--border);border-radius:8px;overflow:hidden;width:100%}
+.img-ph::before{content:attr(data-name);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-align:center;padding:10px;background:linear-gradient(135deg,#eaf4ff,#f5f7fa);z-index:1}
+.img-ph img{position:relative;width:100%;height:100%;object-fit:cover;z-index:2}
+.img-ph img:not([src]),.img-ph img[src=""]{display:none}
+
+/* Top bar */
+.topbar{background:var(--blue);color:#fff;font-size:14px;padding:8px 0;text-align:center}
+.topbar a{font-weight:600;color:#fff}
+
+/* Header */
+.header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:15px 0;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;color:var(--dark)}
+.logo .logo-img{width:46px;height:46px;flex-shrink:0}
+.logo span b{color:var(--red)}
+.menu{display:flex;list-style:none;gap:26px;align-items:center}
+.menu a{font-weight:500;color:var(--dark);transition:color .2s}
+.menu a:hover{color:var(--blue)}
+.btn{display:inline-block;padding:12px 22px;border-radius:6px;font-weight:700;font-size:14px;letter-spacing:.4px;transition:transform .15s,box-shadow .15s;cursor:pointer;border:none}
+.btn-red{background:var(--red);color:#fff}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-outline{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.burger{display:none;background:none;border:none;font-size:28px;cursor:pointer;color:var(--dark)}
+
+/* Hero */
+.hero{position:relative;background:linear-gradient(135deg,#eaf4ff 0%,#f5f7fa 100%);padding:70px 0;overflow:hidden}
+.hero-wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.hero h1{font-size:52px;font-weight:800;line-height:1.1;margin-bottom:20px;color:var(--dark)}
+.hero h1 span{color:var(--red)}
+.hero p{font-size:18px;color:var(--muted);margin-bottom:30px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero-img{height:460px}
+
+/* Section base */
+section{padding:80px 0}
+.section-title{font-size:36px;font-weight:800;text-align:center;margin-bottom:14px;color:var(--dark)}
+.section-sub{text-align:center;color:var(--muted);max-width:700px;margin:0 auto 50px;font-size:16px}
+
+/* Intro */
+.intro{background:#fff}
+.intro-wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.intro-img{height:420px}
+.intro h2{font-size:34px;font-weight:800;margin-bottom:20px}
+.intro p{color:var(--muted);margin-bottom:16px;font-size:16px}
+.highlights{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.highlight{background:var(--lblue);border-left:4px solid var(--blue);padding:14px;border-radius:6px;font-weight:600;font-size:14px;text-align:center}
+
+/* Services */
+.services{background:var(--gray)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.card-img{height:220px;border-radius:0}
+.card-body{padding:22px;flex:1;display:flex;flex-direction:column}
+.card h3{font-size:20px;font-weight:700;margin-bottom:10px;color:var(--dark)}
+.card p{color:var(--muted);font-size:14px;margin-bottom:16px;flex:1}
+.card .more{color:var(--red);font-weight:700;font-size:14px}
+.card .more::after{content:" →"}
+
+/* Visual section */
+.visual{background:#fff}
+.visual-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:30px}
+.visual-grid .img-ph{height:260px}
+.visual-text{max-width:780px;margin:0 auto;text-align:center;color:var(--muted);font-size:17px}
+
+/* Two col sections */
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.twocol .img-ph{height:400px}
+.twocol h2{font-size:32px;font-weight:800;margin-bottom:18px}
+.twocol p{color:var(--muted);margin-bottom:20px;font-size:16px}
+.twocol ul{list-style:none;margin-bottom:24px}
+.twocol ul li{padding:8px 0 8px 28px;position:relative;color:var(--dark)}
+.twocol ul li::before{content:"✓";position:absolute;left:0;color:var(--red);font-weight:800;font-size:18px}
+.krovovi{background:var(--lblue)}
+.adaptacije{background:#fff}
+
+/* Rusenje */
+.rusenje{background:var(--gray)}
+.rusenje-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.rusenje-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.05)}
+.rusenje-card .img-ph{height:180px;border-radius:0}
+.rusenje-card h4{padding:16px;font-size:16px;text-align:center;font-weight:700}
+
+/* Why */
+.why{background:#fff}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why-item{background:var(--lblue);border-radius:10px;padding:26px;text-align:center;border-top:4px solid var(--blue);transition:transform .2s}
+.why-item:hover{transform:translateY(-4px)}
+.why-item .ic{width:48px;height:48px;background:var(--red);color:#fff;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px}
+.why-item h4{font-size:17px;font-weight:700}
+
+/* Contact */
+.contact{background:var(--lblue)}
+.contact-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:40px}
+.contact-info{background:#fff;padding:32px;border-radius:10px}
+.contact-info h3{font-size:22px;margin-bottom:18px}
+.contact-info .info-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);color:var(--dark)}
+.contact-info .info-row:last-child{border-bottom:none}
+.contact-info .info-row b{display:inline-block;min-width:80px;color:var(--muted);font-weight:500}
+form{background:#fff;padding:32px;border-radius:10px}
+form label{display:block;font-weight:600;margin-bottom:6px;font-size:14px}
+form input,form textarea{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:6px;font-family:inherit;font-size:15px;margin-bottom:16px;transition:border-color .2s}
+form input:focus,form textarea:focus{outline:none;border-color:var(--blue)}
+form textarea{resize:vertical;min-height:120px}
+form button{width:100%;padding:14px;font-size:15px}
+
+/* Floating buttons */
+.float{position:fixed;right:20px;bottom:90px;display:flex;flex-direction:column;gap:12px;z-index:99}
+.float a{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;box-shadow:0 4px 14px rgba(0,0,0,.2);animation:pulse 2s infinite}
+.float .wa{background:#25d366}
+.float .we{background:var(--blue);animation-delay:.5s}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+/* Sticky mobile */
+.sticky-call{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--red);color:#fff;text-align:center;padding:15px;font-weight:800;z-index:99;box-shadow:0 -2px 10px rgba(0,0,0,.15);letter-spacing:.5px}
+
+/* Footer */
+footer{background:var(--dark);color:#fff;padding:50px 0 20px}
+.foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px;margin-bottom:30px}
+footer h4{font-size:18px;margin-bottom:14px;color:#fff}
+footer p,footer a{color:#cbd5e1;font-size:14px;line-height:1.9}
+.copyright{border-top:1px solid #374151;padding-top:20px;text-align:center;font-size:13px;color:#9ca3af}
+.copyright a{color:var(--blue)}
+
+/* Responsive */
+@media(max-width:900px){
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;padding:20px;border-bottom:1px solid var(--border);gap:14px;box-shadow:0 8px 20px rgba(0,0,0,.08)}
+  .menu.open{display:flex}
+  .burger{display:block}
+  .hero-wrap,.intro-wrap,.twocol,.contact-wrap{grid-template-columns:1fr;gap:30px}
+  .hero{padding:40px 0}
+  .hero h1{font-size:36px}
+  .hero-img,.intro-img,.twocol .img-ph{height:280px}
+  .cards,.visual-grid,.why-grid{grid-template-columns:1fr 1fr;gap:18px}
+  .rusenje-grid{grid-template-columns:1fr 1fr}
+  .highlights{grid-template-columns:1fr 1fr}
+  .section-title{font-size:28px}
+  section{padding:50px 0}
+  .foot{grid-template-columns:1fr}
+  .sticky-call{display:block}
+  body{padding-bottom:60px}
+  .float{bottom:80px;right:14px}
+  .float a{width:48px;height:48px;font-size:20px}
+}
+@media(max-width:560px){
+  .cards,.visual-grid,.why-grid,.rusenje-grid,.highlights{grid-template-columns:1fr}
+  .hero h1{font-size:30px}
+  .topbar{font-size:13px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  Telefon: <a href="tel:+381653555692">065 355 5692</a> &nbsp;|&nbsp; Beograd
+</div>
+
+<header class="header">
+  <div class="container nav">
+    <a href="#" class="logo">
+      <div class="img-ph logo-img" data-name="logo"><img src="images/logo-gradnja-vuk.png" alt="Gradnja Vuk logo" onerror="this.style.display='none'"></div>
+      <span>Gradnja <b>Vuk</b></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#pocetna">Početna</a></li>
+      <li><a href="#usluge">Usluge</a></li>
+      <li><a href="#krovovi">Krovovi</a></li>
+      <li><a href="#adaptacije">Adaptacije</a></li>
+      <li><a href="#rusenje">Rušenje</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="tel:+381653555692" class="btn btn-red">Pozovite nas</a></li>
+    </ul>
+    <button class="burger" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+  </div>
+</header>
+
+<section class="hero" id="pocetna">
+  <div class="container hero-wrap">
+    <div>
+      <h1>Gradnja <span>Vuk</span></h1>
+      <p>Pouzdani građevinski radovi u Beogradu. Radimo izradu krovova, adaptacije stanova, rušenje zidova, skidanje parketa, laminata, pločica i odvoz šuta.</p>
+      <div class="hero-cta">
+        <a href="tel:+381653555692" class="btn btn-red">POZOVITE NAS</a>
+        <a href="#kontakt" class="btn btn-outline">POŠALJITE UPIT</a>
+      </div>
+    </div>
+    <div class="img-ph hero-img" data-name="hero-krov.png">
+      <img src="images/hero-krov.png" alt="Izrada krova - Gradnja Vuk" onerror="this.style.display='none'">
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="container intro-wrap">
+    <div class="img-ph intro-img" data-name="majstor-krov.png">
+      <img src="images/majstor-krov.png" alt="Majstor na krovu" onerror="this.style.display='none'">
+    </div>
+    <div>
+      <h2>Gradnja Vuk – građevinski radovi u Beogradu</h2>
+      <p>Bilo da vam je potrebna izrada krova, adaptacija stana, rušenje zidova ili uklanjanje starih podova i pločica, Gradnja Vuk pruža praktična i pouzdana rešenja za stambene i poslovne prostore.</p>
+      <p>Radove izvodimo dogovoreno, odgovorno i uredno, uz jasnu komunikaciju od prvog poziva do završetka posla.</p>
+      <div class="highlights">
+        <div class="highlight">Beograd</div>
+        <div class="highlight">Brz dogovor</div>
+        <div class="highlight">Uredan rad</div>
+        <div class="highlight">Odvoz šuta</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="usluge">
+  <div class="container">
+    <h2 class="section-title">Naše usluge</h2>
+    <p class="section-sub">Kompletna paleta građevinskih radova za vaš dom ili poslovni prostor.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="img-ph card-img" data-name="izrada-krova.png"><img src="images/izrada-krova.png" alt="Izrada krovova" onerror="this.style.display='none'"></div>
+        <div class="card-body"><h3>Izrada krovova</h3><p>Izvodimo radove na izradi, obnovi i pripremi krovova za kuće, stanove i manje poslovne objekte.</p><a href="#kontakt" class="more">Saznajte više</a></div>
+      </div>
+      <div class="card">
+        <div class="img-ph card-img" data-name="adaptacija-stana.png"><img src="images/adaptacija-stana.png" alt="Adaptacije stanova" onerror="this.style.display='none'"></div>
+        <div class="card-body"><h3>Adaptacije stanova</h3><p>Radimo pripremne građevinske radove, rušenje, uklanjanje starih obloga i pripremu prostora za renoviranje.</p><a href="#kontakt" class="more">Saznajte više</a></div>
+      </div>
+      <div class="card">
+        <div class="img-ph card-img" data-name="rusenje-zidova.png"><img src="images/rusenje-zidova.png" alt="Rušenje zidova" onerror="this.style.display='none'"></div>
+        <div class="card-body"><h3>Rušenje zidova</h3><p>Rušenje zidova i pregradnih zidova uz pažljiv, organizovan i odgovoran pristup.</p><a href="#kontakt" class="more">Saznajte više</a></div>
+      </div>
+      <div class="card">
+        <div class="img-ph card-img" data-name="skidanje-plocica.png"><img src="images/skidanje-plocica.png" alt="Skidanje pločica" onerror="this.style.display='none'"></div>
+        <div class="card-body"><h3>Skidanje pločica</h3><p>Skidanje starih pločica iz kupatila, kuhinja i drugih prostorija pre renoviranja.</p><a href="#kontakt" class="more">Saznajte više</a></div>
+      </div>
+      <div class="card">
+        <div class="img-ph card-img" data-name="skidanje-parketa.png"><img src="images/skidanje-parketa.png" alt="Skidanje parketa" onerror="this.style.display='none'"></div>
+        <div class="card-body"><h3>Skidanje parketa i laminata</h3><p>Brzo i efikasno skidanje starih podnih obloga i priprema poda za dalje radove.</p><a href="#kontakt" class="more">Saznajte više</a></div>
+      </div>
+      <div class="card">
+        <div class="img-ph card-img" data-name="odvoz-suta.png"><img src="images/odvoz-suta.png" alt="Odvoz šuta" onerror="this.style.display='none'"></div>
+        <div class="card-body"><h3>Odvoz šuta</h3><p>Organizujemo odvoz šuta nakon radova i ostavljamo prostor spreman za sledeću fazu.</p><a href="#kontakt" class="more">Saznajte više</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visual">
+  <div class="container">
+    <h2 class="section-title">Priprema, rad i završetak bez komplikovanja</h2>
+    <div class="visual-grid">
+      <div class="img-ph" data-name="alati-na-stolu.png"><img src="images/alati-na-stolu.png" alt="Alati" onerror="this.style.display='none'"></div>
+      <div class="img-ph" data-name="merenje.png"><img src="images/merenje.png" alt="Merenje" onerror="this.style.display='none'"></div>
+      <div class="img-ph" data-name="gradjevinski-planovi.png"><img src="images/gradjevinski-planovi.png" alt="Planovi" onerror="this.style.display='none'"></div>
+    </div>
+    <p class="visual-text">Dobar posao počinje jasnim dogovorom i dobrom pripremom. Zato svaki rad sagledavamo praktično, dogovaramo korake i izvodimo posao uredno.</p>
+  </div>
+</section>
+
+<section class="krovovi" id="krovovi">
+  <div class="container twocol">
+    <div class="img-ph" data-name="krovovi-radovi.png"><img src="images/krovovi-radovi.png" alt="Krovovi radovi" onerror="this.style.display='none'"></div>
+    <div>
+      <h2>Izrada i obnova krovova</h2>
+      <p>Krov je jedan od najvažnijih delova svakog objekta. Gradnja Vuk izvodi radove na izradi i obnovi krovova, uz dogovor, praktičan pristup i odgovoran rad.</p>
+      <ul>
+        <li>Izrada i obnova krovova</li>
+        <li>Radovi na kućama i manjim objektima</li>
+        <li>Dogovor na licu mesta</li>
+        <li>Radovi na teritoriji Beograda</li>
+      </ul>
+      <a href="tel:+381653555692" class="btn btn-red">Pozovite za procenu</a>
+    </div>
+  </div>
+</section>
+
+<section class="adaptacije" id="adaptacije">
+  <div class="container twocol">
+    <div>
+      <h2>Adaptacije stanova</h2>
+      <p>Ako pripremate stan za renoviranje, Gradnja Vuk može da uradi uklanjanje starih elemenata, rušenje zidova, skidanje parketa, laminata i pločica, kao i pripremu prostora za dalje radove.</p>
+      <a href="#kontakt" class="btn btn-blue">Pošaljite upit</a>
+    </div>
+    <div class="img-ph" data-name="adaptacija-enterijer.png"><img src="images/adaptacija-enterijer.png" alt="Adaptacija enterijera" onerror="this.style.display='none'"></div>
+  </div>
+</section>
+
+<section class="rusenje" id="rusenje">
+  <div class="container">
+    <h2 class="section-title">Rušenje, skidanje i odvoz šuta</h2>
+    <p class="section-sub">Praktičan i odgovoran pristup pripremnim radovima.</p>
+    <div class="rusenje-grid">
+      <div class="rusenje-card"><div class="img-ph" data-name="rusenje-pregradnih-zidova.png"><img src="images/rusenje-pregradnih-zidova.png" alt="Rušenje zidova" onerror="this.style.display='none'"></div><h4>Rušenje zidova</h4></div>
+      <div class="rusenje-card"><div class="img-ph" data-name="skidanje-plocica.png"><img src="images/skidanje-plocica.png" alt="Gipsani zidovi" onerror="this.style.display='none'"></div><h4>Rušenje gipsanih pregradnih zidova</h4></div>
+      <div class="rusenje-card"><div class="img-ph" data-name="skidanje-parketa.png"><img src="images/skidanje-parketa.png" alt="Parket" onerror="this.style.display='none'"></div><h4>Skidanje parketa, laminata i pločica</h4></div>
+      <div class="rusenje-card"><div class="img-ph" data-name="odvoz-suta.png"><img src="images/odvoz-suta.png" alt="Odvoz šuta" onerror="this.style.display='none'"></div><h4>Odvoz šuta</h4></div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="container">
+    <h2 class="section-title">Zašto izabrati Gradnja Vuk?</h2>
+    <p class="section-sub">Praktično, pouzdano i sa jasnim dogovorom od početka do kraja.</p>
+    <div class="why-grid">
+      <div class="why-item"><div class="ic">✓</div><h4>Jasna komunikacija</h4></div>
+      <div class="why-item"><div class="ic">✓</div><h4>Poštovanje dogovora</h4></div>
+      <div class="why-item"><div class="ic">✓</div><h4>Rad na teritoriji Beograda</h4></div>
+      <div class="why-item"><div class="ic">✓</div><h4>Uredan završetak posla</h4></div>
+      <div class="why-item"><div class="ic">✓</div><h4>Brz dogovor</h4></div>
+      <div class="why-item"><div class="ic">✓</div><h4>Praktičan pristup</h4></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="container">
+    <h2 class="section-title">Pošaljite nam upit</h2>
+    <p class="section-sub">Javite se telefonom ili nam pošaljite poruku. Odgovaramo u najkraćem roku.</p>
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h3>Kontakt podaci</h3>
+        <div class="info-row"><b>Telefon:</b> <a href="tel:+381653555692">065 355 5692</a></div>
+        <div class="info-row"><b>Email:</b> <a href="mailto:grubisic514@gmail.com">grubisic514@gmail.com</a></div>
+        <div class="info-row"><b>Grad:</b> Beograd</div>
+        <div class="info-row"><b>WhatsApp:</b> <a href="https://wa.me/381653555692" target="_blank">Pošaljite poruku</a></div>
+        <div style="margin-top:20px"><a href="tel:+381653555692" class="btn btn-red" style="width:100%;text-align:center">POZOVITE ODMAH</a></div>
+      </div>
+      <form method="POST" action="https://api.web3forms.com/submit">
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+        <label>Ime i prezime</label>
+        <input type="text" name="ime" required>
+        <label>Telefon</label>
+        <input type="tel" name="telefon" required>
+        <label>Email</label>
+        <input type="email" name="email" required>
+        <label>Poruka</label>
+        <textarea name="poruka" required></textarea>
+        <button type="submit" class="btn btn-red">POŠALJITE UPIT</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="float">
+  <a href="https://wa.me/381653555692" target="_blank" class="wa" aria-label="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.5-.3-.5.3-.5.8-1.5.1-.2 0-.3 0-.5s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.5 1.9.8 2.6.9 3.5.7.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 00-8.5 15.3L2 22l4.8-1.5A10 10 0 1012 2z"/></svg>
+  </a>
+  <a href="tel:+381653555692" class="we" aria-label="Pozovi">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 15.5c-1.2 0-2.5-.2-3.6-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1-.3-1.1-.5-2.3-.5-3.5 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z"/></svg>
+  </a>
+</div>
+
+<a href="tel:+381653555692" class="sticky-call">📞 POZOVI 065 355 5692</a>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div>
+        <h4>Gradnja Vuk</h4>
+        <p>Krovovi, adaptacije, rušenje i odvoz šuta u Beogradu. Pouzdani građevinski radovi sa jasnim dogovorom i urednim završetkom.</p>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <p>Telefon: <a href="tel:+381653555692">065 355 5692</a><br>
+        Email: <a href="mailto:grubisic514@gmail.com">grubisic514@gmail.com</a><br>
+        Lokacija: Beograd</p>
+      </div>
+      <div>
+        <h4>Usluge</h4>
+        <p><a href="#krovovi">Izrada krovova</a><br>
+        <a href="#adaptacije">Adaptacije stanova</a><br>
+        <a href="#rusenje">Rušenje zidova</a><br>
+        <a href="#usluge">Odvoz šuta</a></p>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2026 Gradnja Vuk. Sva prava zadržana. &nbsp;|&nbsp; SiteMaster: <a href="https://www.silverado.pro" target="_blank">www.silverado.pro</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.menu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('menu').classList.remove('open')));
+</script>
+
+</body>
+</html>
